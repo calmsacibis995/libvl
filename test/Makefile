@@ -23,7 +23,7 @@ LIB = vl
 CFLAGS = -O -I../src -L$(LDPATH) -l$(LIB)
 
 test:
-	gcc $(CFLAGS) -o test test.c
+	gcc -o test test.c $(CFLAGS)
 
 clean:
 	rm test
