@@ -18,8 +18,12 @@
 
 all: test
 
+LDPATH = ../src
+LIB = vl
+CFLAGS = -O -I../src -L$(LDPATH) -l$(LIB)
+
 test:
-	gcc -o test test.c
+	gcc $(CFLAGS) -o test test.c
 
 clean:
 	rm test
