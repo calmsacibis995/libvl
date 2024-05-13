@@ -1,6 +1,6 @@
 /*
  * libvl - An library for writing init systems.
- * Copyright (C) 2023 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
+ * Copyright (C) 2023, 2024 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ setimer(int timelimit)
  * "timer" is a substitute for "sleep" which uses "alarm" and "pause".
  */
 void
-timer(register int waitime)
+timer(int waitime)
 {
 	extern union WAKEUP wakeup;
 
@@ -52,7 +52,7 @@ timer(register int waitime)
  * "error_time" returns TRUE, otherwise it returns FALSE.
  */
 int
-error_time(register int type)
+error_time(int type)
 {
 	long curtime;
 	extern struct ERRORTIMES err_times[];

@@ -1,6 +1,6 @@
 /*
  * libvl - An library for writing init systems.
- * Copyright (C) 2023 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
+ * Copyright (C) 2023, 2024 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -106,13 +106,13 @@ extern char *DBG_FILE, *WTMP;
  */
 extern void debug(char *format, ...);
 extern void console(char *format, ...);
-extern void account(int state, register struct PROC_TABLE *process, char *program);
-extern int error_time(register int type);
-extern struct PROC_TABLE *efork(register struct PROC_TABLE *process, int modes);
-extern void timer(register int waitime);
+extern void account(int state, struct PROC_TABLE *process, char *program);
+extern int error_time(int type);
+extern struct PROC_TABLE *efork(struct PROC_TABLE *process, int modes);
+extern void timer(int waitime);
 extern void childeath();
-extern void zero(register char *adr, register int size);
+extern void zero(char *adr, int size);
 extern char level(int state);
-extern long waitproc(register struct PROC_TABLE *process);
+extern long waitproc(struct PROC_TABLE *process);
 
 #endif /* _LIBVL_H */

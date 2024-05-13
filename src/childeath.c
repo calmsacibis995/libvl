@@ -1,6 +1,6 @@
 /*
  * libvl - An library for writing init systems.
- * Copyright (C) 2023 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
+ * Copyright (C) 2023, 2024 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,8 +23,8 @@ void
 childeath()
 {
 	union WAKEUP wakeup;
-	register struct PROC_TABLE *process;
-	register int pid;
+	struct PROC_TABLE *process;
+	int pid;
 	int status;
 
 /* Perform wait to get the process id of the child who died and */

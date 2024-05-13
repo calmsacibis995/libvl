@@ -1,6 +1,6 @@
 /*
  * libvl - An library for writing init systems.
- * Copyright (C) 2023 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
+ * Copyright (C) 2023, 2024 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 
 #include "libvl.h"
 #include <stdio.h>
+#include <stdarg.h>
 #include <errno.h>
 
 char *DBG_FILE = "/etc/debug";
@@ -27,12 +28,17 @@ debug(char *format, ...)
 {
 	register FILE *fp;
 	register int errnum;
+	va_list va;
 
 	if ((fp = fopen(DBG_FILE,"a+")) == NULL) {
 		errnum = errno;
-		console("Can't open \"%s\".  errno: %d\n",DBG_FILE,errnum);
+		console("Can't open \"%s\". errno %d\n", DBG_FILE, errnum);
 		return;
 	}
-	fprintf(fp, "%s\n", format);
+	va_start(va, format);
+	fprintf(fp, "%s", format);
+	vfprintf(fp, "%s", va);
+	fprintf(fp, "\n");
+	va_end(va);
 	fclose(fp);
 }

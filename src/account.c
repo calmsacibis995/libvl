@@ -1,6 +1,6 @@
 /*
  * libvl - An library for writing init systems.
- * Copyright (C) 2023 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
+ * Copyright (C) 2023, 2024 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,11 +38,10 @@ char *WTMP = "wtmp";
  * Name of program in the case of INIT_PROCESSes, otherwise NULL.
  */
 void
-account(int state, register struct PROC_TABLE *process, char *program)
+account(int state, struct PROC_TABLE *process, char *program)
 {
 	struct utmp utmpbuf;
-	register struct utmp *u,*oldu;
-	extern struct utmp *getutid(),*pututline();
+	struct utmp *u,*oldu;
 	extern char *WTMP;
 	FILE *fp;
 
@@ -67,7 +66,7 @@ account(int state, register struct PROC_TABLE *process, char *program)
 	u->ut_exit.e_termination = (process->p_exit & 0xff);
 	u->ut_exit.e_exit = ((process->p_exit >> 8) & 0xff);
 	u->ut_type = state;
-	time(&u->ut_time);
+	time(&(u->ut_time));
 
 /* See if there already is such an entry in the "utmp" file. */
 	setutent();	/* Start at beginning of utmp file. */
@@ -114,7 +113,7 @@ account(int state, register struct PROC_TABLE *process, char *program)
 /* "a+" will. */
 	if ((fp = fopen(WTMP,"r+")) != NULL) {
 		fseek(fp,0L,2);	/* Seek to end of file */
-		fwrite(u,sizeof(*u),1,fp);
+		fwrite((void *)u, sizeof(*u), 1, fp);
 		fclose(fp);
 	}
 }

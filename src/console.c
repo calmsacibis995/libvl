@@ -23,6 +23,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
+#include <stdarg.h>
 
 int own_pid = SPECIALPID;
 
@@ -37,6 +38,7 @@ console(char *format, ...)
 {
 	register struct PROC_TABLE *process;
 	char outbuf[BUFSIZ];
+	va_list va;
 
 	/*
 	 * Are with the original "init"?  If so, fork
@@ -58,7 +60,9 @@ console(char *format, ...)
 			/*
 			 * Output the message to the console.
 			 */
+			va_start(va, format);
 			fprintf(stdout,"\nINIT: %s", format);
+			vfprintf(stdout, "%s", va);
 			fflush(stdout);
 			exit(0);
 			
@@ -74,6 +78,7 @@ console(char *format, ...)
 	} else {
 		setbuf(stdout,&outbuf[0]);
 		fprintf(stdout, "\nINIT: %s", format);
+		vfprintf(stdout, "%s", va);
 		fflush(stdout);
 	}
 }

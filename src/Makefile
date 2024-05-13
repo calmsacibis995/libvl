@@ -19,7 +19,7 @@
 all: libvl
 
 libvl:
-	gcc -c *.c
+	gcc -c *.c -g
 	ar crv libvl.a *.o
 
 clean:

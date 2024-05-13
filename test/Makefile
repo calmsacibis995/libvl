@@ -20,7 +20,7 @@ all: test
 
 LDPATH = ../src
 LIB = vl
-CFLAGS = -O -I../src -L$(LDPATH) -l$(LIB)
+CFLAGS = -O -I../src -L$(LDPATH) -l$(LIB) -g
 
 test:
 	gcc -o test test.c $(CFLAGS)

@@ -1,6 +1,6 @@
 /*
  * libvl - An library for writing init systems.
- * Copyright (C) 2023 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
+ * Copyright (C) 2023, 2024 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,10 +35,10 @@ struct PROC_TABLE proc_table[NPROC];
  * proc_table entry.
  */
 struct PROC_TABLE *
-efork(register struct PROC_TABLE *process, int modes)
+efork(struct PROC_TABLE *process, int modes)
 {
-	register int childpid;
-	register struct PROC_TABLE *proc;
+	int childpid;
+	struct PROC_TABLE *proc;
 	int i;
 	extern void childeath(int);
 	void (*oldroutine)(int);
