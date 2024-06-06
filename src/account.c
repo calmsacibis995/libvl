@@ -47,7 +47,6 @@ account(int state, struct PROC_TABLE *process, char *program)
 	FILE *fp;
 
 #ifdef DEBUG
-	extern char *C();
 	debug("** account ** state: %d id:%s\n",state,C(&process->p_id[0]));
 #endif
 
@@ -67,8 +66,9 @@ account(int state, struct PROC_TABLE *process, char *program)
 	u->ut_exit.e_termination = (process->p_exit & 0xff);
 	u->ut_exit.e_exit = ((process->p_exit >> 8) & 0xff);
 	u->ut_type = state;
-	t = u->ut_time;
+	t = u->ut_time;		// A small workaround, as we cannot use the struct directly with time().
 	time(&t);
+	u->ut_time = t;
 
 /* See if there already is such an entry in the "utmp" file. */
 	setutent();	/* Start at beginning of utmp file. */

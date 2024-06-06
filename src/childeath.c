@@ -20,7 +20,7 @@
 #include <sys/wait.h>
 
 void
-childeath()
+childeath(void)
 {
 	union WAKEUP wakeup;
 	struct PROC_TABLE *process;
@@ -36,8 +36,8 @@ childeath()
 	pid = wait(&status);
 
 #ifdef	DEBUG
-	debug("childeath: pid-%d status-%x\n",pid,status);
-	debug("childeath: pid- %d status- %x\n",pid,status);
+	debug("childeath: pid %d, status 0x%x\n",pid,status);
+	debug("childeath: pid %d, status 0x%x\n",pid,status);
 #endif
 
 	for (process= &proc_table[0]; process < &proc_table[NPROC];process++) {
@@ -52,6 +52,7 @@ childeath()
 			break;
 		}
 	}
+
 #ifdef	DEBUG
 	if (process == &proc_table[NPROC])
 		debug("Didn't find process %d.\n", pid);

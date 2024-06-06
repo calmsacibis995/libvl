@@ -99,18 +99,20 @@ extern union WAKEUP wakeup;
 extern int cur_state;
 extern int own_pid;	/* This is the value of our own pid. */
 
-extern char *DBG_FILE, *WTMP;
+extern char *WTMP;
 
 /*
  * Function declarations.
  */
+
+extern char *C(char *id);
 extern void debug(char *format, ...);
 extern void console(char *format, ...);
 extern void account(int state, struct PROC_TABLE *process, char *program);
 extern int error_time(int type);
 extern struct PROC_TABLE *efork(struct PROC_TABLE *process, int modes);
 extern void timer(int waitime);
-extern void childeath();
+extern void childeath(void);
 extern void zero(char *adr, int size);
 extern char level(int state);
 extern long waitproc(struct PROC_TABLE *process);

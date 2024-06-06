@@ -19,26 +19,33 @@
 #include "libvl.h"
 #include <stdio.h>
 #include <stdarg.h>
-#include <errno.h>
+#include <ctype.h>
 
-char *DBG_FILE = "/etc/debug";
+char *
+C(char *id)
+{
+	static char answer[12];
+	char *ptr;
+	int i;
+
+	for (i=4,ptr = &answer[0]; --i >= 0;id++) {
+		if ( isprint(*id) == 0 ) {
+			*ptr++ = '^';
+			*ptr++ = *id + 0100;
+		} else *ptr++ = *id;
+	}
+	*ptr++ = '\0';
+	return(&answer[0]);
+}
 
 void
 debug(char *format, ...)
 {
-	register FILE *fp;
-	register int errnum;
 	va_list va;
 
-	if ((fp = fopen(DBG_FILE,"a+")) == NULL) {
-		errnum = errno;
-		console("Can't open \"%s\". errno %d\n", DBG_FILE, errnum);
-		return;
-	}
 	va_start(va, format);
-	fprintf(fp, "%s", format);
-	vfprintf(fp, "%s", va);
-	fprintf(fp, "\n");
+	fprintf(stderr, "DEBUG: ");
+	vfprintf(stderr, format, va);
+	fprintf(stderr, "\n");
 	va_end(va);
-	fclose(fp);
 }

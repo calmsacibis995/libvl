@@ -22,9 +22,10 @@
  * If not, there is a bug, and it should be immediately reported.
  * 
  * 1. "INIT: Hello!"
- * 2. "INIT: Hello!" (from variable)
- * 3. "INIT: 4" (from variable with %d)
- * 4. "INIT: Hello!" (from variable with %s)
+ * 2. "INIT: 4" (from variable with %d)
+ * 3. "INIT: Hello!" (from variable with %s)
+ * 4. "DEBUG: This is a test!" 
+ * 5. "DEBUG: This is a test!" (from variable with %s)
  */
 
 #include <libvl.h>
@@ -33,12 +34,14 @@ int
 main()
 {
 	char *string = "Hello!";
+	char *dbgstr = "This is a test!";
 	int val = 4;
 	
 	console("Hello!\n");
-	console(string);
 	console("%d\n", val);
 	console("%s\n", string);
-	debug("Test debug message!\n");
+	debug("This is a test!\n");
+	debug("%s\n", dbgstr);
+
 	return(0);	
 }

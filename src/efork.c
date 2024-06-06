@@ -40,7 +40,6 @@ efork(struct PROC_TABLE *process, int modes)
 	int childpid;
 	struct PROC_TABLE *proc;
 	int i;
-	extern void childeath(int);
 	void (*oldroutine)(int);
 
 /* Freshen up the proc_table, removing any entries for dead */
@@ -48,7 +47,7 @@ efork(struct PROC_TABLE *process, int modes)
 /* necessary accounting. */
 	for (proc= &proc_table[0]; proc < &proc_table[NPROC]; proc++) {
 		if ((proc->p_flags & (OCCUPIED | LIVING | NOCLEANUP)) == (OCCUPIED)) {
-#ifdef	DEBUG
+#ifdef DEBUG
 			debug("efork- id:%s pid: %d time: %lo %d %o %o\n",
 				C(&proc->p_id[0]),proc->p_pid, proc->p_time,
 				proc->p_count, proc->p_flags,proc->p_exit);
@@ -71,7 +70,7 @@ efork(struct PROC_TABLE *process, int modes)
 /* called with SIGCLD in the default state, reset it to catch */
 /* so that child death signals can come in. */
 
-		oldroutine = signal(SIGCLD,childeath);
+		oldroutine = signal(SIGCLD, (void(*)(int))childeath);
 		pause();
 		signal(SIGCLD,oldroutine);
 	}
