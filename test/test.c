@@ -39,5 +39,6 @@ main()
 	console(string);
 	console("%d\n", val);
 	console("%s\n", string);
+	debug("Test debug message!\n");
 	return(0);	
 }
