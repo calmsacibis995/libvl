@@ -43,6 +43,7 @@ account(int state, struct PROC_TABLE *process, char *program)
 	struct utmp utmpbuf;
 	struct utmp *u,*oldu;
 	extern char *WTMP;
+	time_t t;
 	FILE *fp;
 
 #ifdef DEBUG
@@ -66,7 +67,8 @@ account(int state, struct PROC_TABLE *process, char *program)
 	u->ut_exit.e_termination = (process->p_exit & 0xff);
 	u->ut_exit.e_exit = ((process->p_exit >> 8) & 0xff);
 	u->ut_type = state;
-	time(&(u->ut_time));
+	t = u->ut_time;
+	time(&t);
 
 /* See if there already is such an entry in the "utmp" file. */
 	setutent();	/* Start at beginning of utmp file. */
