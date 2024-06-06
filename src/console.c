@@ -61,8 +61,8 @@ console(char *format, ...)
 			 * Output the message to the console.
 			 */
 			va_start(va, format);
-			fprintf(stdout,"\nINIT: %s", format);
-			vfprintf(stdout, "%s", va);
+			fprintf(stdout,"\nINIT: ");
+			vfprintf(stdout, format, va);
 			fflush(stdout);
 			exit(0);
 			
@@ -77,8 +77,8 @@ console(char *format, ...)
 	 */
 	} else {
 		setbuf(stdout,&outbuf[0]);
-		fprintf(stdout, "\nINIT: %s", format);
-		vfprintf(stdout, "%s", va);
+		fprintf(stdout, "\nINIT: ");
+		vfprintf(stdout, format, va);
 		fflush(stdout);
 	}
 }

@@ -23,7 +23,8 @@
  * 
  * 1. "INIT: Hello!"
  * 2. "INIT: Hello!" (from variable)
- * 3. "INIT: 4" (from variable)
+ * 3. "INIT: 4" (from variable with %d)
+ * 4. "INIT: Hello!" (from variable with %s)
  */
 
 #include <libvl.h>
@@ -37,5 +38,6 @@ main()
 	console("Hello!\n");
 	console(string);
 	console("%d\n", val);
+	console("%s\n", string);
 	return(0);	
 }
