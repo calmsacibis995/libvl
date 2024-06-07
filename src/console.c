@@ -47,7 +47,7 @@ console(char *format, ...)
 	if (own_pid == SPECIALPID) {
 		signal(SIGCLD,SIG_DFL);
 		while ((process = efork(NULLPROC,NOCLEANUP)) == NO_ROOM) timer(5);
-		signal(SIGCLD,childeath);
+		signal(SIGCLD, (void(*)(int))childeath);
 		if (process == NULLPROC) {
 			/*
 			 * Close the standard descriptors and open the system console.

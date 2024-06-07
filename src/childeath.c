@@ -59,5 +59,5 @@ childeath(void)
 #endif
 
 /* Reset the child death signal routine. */
-	signal(SIGCLD,childeath);
+	signal(SIGCLD, (void(*)(int))childeath);
 }
