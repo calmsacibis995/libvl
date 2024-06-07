@@ -21,7 +21,7 @@
 char
 level(int state)
 {
-	register char answer;
+	char answer;
 
 	switch(state) {
 	case LVL0 :

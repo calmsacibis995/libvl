@@ -36,7 +36,7 @@ int own_pid = SPECIALPID;
 void
 console(char *format, ...)
 {
-	register struct PROC_TABLE *process;
+	struct PROC_TABLE *process;
 	char outbuf[BUFSIZ];
 	va_list va;
 
