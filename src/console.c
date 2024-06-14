@@ -25,7 +25,23 @@
 #include <errno.h>
 #include <stdarg.h>
 
-int own_pid = SPECIALPID;
+int own_pid;
+
+static const char *console_name = "/dev/console";
+
+static void
+open_console(void)
+{
+	int fd;
+
+	if ((fd = open(console_name, O_RDWR)) < 0)
+		fd = open("/dev/null", O_RDWR);
+
+	dup2(fd, 0);
+	dup2(fd, 1);
+	dup2(fd, 2);
+	close(fd);
+}
 
 /*
  * "console" forks a child if it finds that it is the main "init"
@@ -46,15 +62,14 @@ console(char *format, ...)
 	 */
 	if (own_pid == SPECIALPID) {
 		signal(SIGCLD,SIG_DFL);
-		while ((process = efork(NULLPROC,NOCLEANUP)) == NO_ROOM) timer(5);
+		while ((process = efork(NULLPROC,NOCLEANUP)) == NO_ROOM)
+			timer(5);
 		signal(SIGCLD, (void(*)(int))childeath);
 		if (process == NULLPROC) {
 			/*
 			 * Close the standard descriptors and open the system console.
-			 * 
-			 * Currently, we cannot open the system console, so we instead
-			 * output it to stdout (standard output).
 			 */
+			open_console();
 			setbuf(stdout,&outbuf[0]);
 			
 			/*
