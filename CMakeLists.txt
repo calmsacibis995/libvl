@@ -26,7 +26,7 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
 # Build with debug info.
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
 
-add_definitions(-DDEBUG -DACCTDEBUG)
+add_compile_definitions(-DDEBUG -DACCTDEBUG)
 
 #--------------------------------------------------------------
 # Subdirectories

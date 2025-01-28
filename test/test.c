@@ -1,6 +1,6 @@
 /*
  * libvl - An library for writing init systems.
- * Copyright (C) 2023 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
+ * Copyright (C) 2023, 2024 Stefanos Stefanidis, <www.fe32gr23@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,18 +30,27 @@
 
 #include <libvl.h>
 
+#include <unistd.h>
+
 int
-main()
+main(void)
 {
 	char *string = "Hello!";
 	char *dbgstr = "This is a test!";
 	int val = 4;
-	
+	struct PROC_TABLE *proct;
+
 	console("Hello!\n");
 	console("%d\n", val);
 	console("%s\n", string);
 	debug("This is a test!\n");
 	debug("%s\n", dbgstr);
 
-	return(0);	
+	own_pid = getpid();
+	if (own_pid == 1)
+		debug("We are running as process 1");
+	else
+		debug("Process id is %d\n", own_pid);
+
+	return(0);
 }
